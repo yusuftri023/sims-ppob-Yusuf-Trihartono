@@ -2,7 +2,7 @@ import loading from "../assets/loading.svg";
 function LoadingSpinner() {
   return (
     <div className="py-10">
-      <img className="max-w-[75px] mx-auto" src={loading}></img>
+      <img className="mx-auto max-w-[75px]" src={loading}></img>
     </div>
   );
 }

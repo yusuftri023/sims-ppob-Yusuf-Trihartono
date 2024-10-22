@@ -1,50 +1,31 @@
-# React + TypeScript + Vite
+# Nutech Front End React Programmer Test
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Pages
 
-Currently, two official plugins are available:
+Screenshot saat dokumentasi berbeda dengan hasil asli karena API Backend down
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Dashboard - path('/')
+  ![dashboard](/screenshots/dashboard-web.png "dashboard")
+  ![dashboard](/screenshots/dashboard-mobile.png "dashboard")
+  ![dashboard](/screenshots/dashboard-menu-mobile.png "dashboard")
+- Login - path('/login')
+  ![login](/screenshots/login-error-web.png "login")
+  ![login](/screenshots/login-mobile.png "login")
 
-## Expanding the ESLint configuration
+- Register - path('/register')
+  ![register](/screenshots/register-web.png "register")
+  ![register](/screenshots/register-mobile.png "register")
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- TopUp - path('/topup')
+  ![topup](/screenshots/topup-web.png "topup")
+  ![topup](/screenshots/topup-mobile.png "topup")
 
-- Configure the top-level `parserOptions` property like this:
+- Payment - path('/payment')
+  ![payment](/screenshots/payment-web.png "payment")
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- Transaction History - path('/history')
+  ![history](/screenshots/history-web.png "history")
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- Profile - path('/profile')
+  ![profile](/screenshots/profile-web.png "profile")
+  ![profile](/screenshots/profile-edit-web.png "profile")

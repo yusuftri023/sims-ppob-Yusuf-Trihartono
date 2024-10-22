@@ -5,13 +5,15 @@ import { Menu } from "react-feather";
 import { useState } from "react";
 function Header() {
   const pathname = window.location.pathname;
+  const [activeNav, setActiveNav] = useState(pathname);
+
   const [isMenuActive, setIsMenuActive] = useState(false);
   const isSmallMobile = useMediaQuery("(max-width: 640px");
   return (
     <>
-      <header className="  py-4 shadow-[0_0_2px_0_rgba(0,0,0,0.5)] ">
-        <div className="flex justify-between lg:max-w-[1000px] md:max-w-[720px] max-w-[90%] mx-auto items-center ">
-          <Link to={"/"}>
+      <header className="py-4 shadow-[0_0_2px_0_rgba(0,0,0,0.5)]">
+        <div className="mx-auto flex max-w-[90%] items-center justify-between md:max-w-[720px] lg:max-w-[1000px]">
+          <Link to={"/"} onClick={() => setActiveNav("/")}>
             <div className="flex items-center space-x-2 font-medium">
               <img src={logo}></img> <span>SIMS PPOB</span>
             </div>
@@ -25,23 +27,27 @@ function Header() {
             </button>
           ) : (
             <div>
-              <nav className="flex space-x-4 items-center">
+              <nav className="flex items-center space-x-4">
                 <div
-                  className={`${pathname === "/topup" ? "text-[#f13b2f]" : ""}`}
+                  className={`${activeNav === "/topup" ? "text-[#f13b2f]" : ""}`}
                 >
-                  <Link to="/topup">TopUp</Link>
+                  <Link to="/topup" onClick={() => setActiveNav("/topup")}>
+                    TopUp
+                  </Link>
                 </div>
                 <div
                   className={`${
-                    pathname === "/history" ? "text-[#f13b2f]" : ""
+                    activeNav === "/history" ? "text-[#f13b2f]" : ""
                   }`}
+                  onClick={() => setActiveNav("/history")}
                 >
                   <Link to={"/history"}>Transaction</Link>
                 </div>
                 <div
                   className={`${
-                    pathname === "/profile" ? "text-[#f13b2f]" : ""
+                    activeNav === "/profile" ? "text-[#f13b2f]" : ""
                   }`}
+                  onClick={() => setActiveNav("/profile")}
                 >
                   <Link to={"/profile"}>Akun</Link>
                 </div>
@@ -54,21 +60,21 @@ function Header() {
         <ul
           className={
             (isMenuActive ? `flex ` : `hidden`) +
-            `  flex-col fixed w-full bg-[#363535] bg-opacity-90 text-center animate-[dropToBottom_0.2s_linear] z-50  top-[64px] left-0 text-gray-500`
+            ` fixed left-0 top-[64px] z-50 w-full animate-[dropToBottom_0.2s_linear] flex-col bg-[#363535] bg-opacity-90 text-center text-gray-500`
           }
         >
           <Link to="/topup">
-            <div className="hover:cursor-pointer border-b-[6px]  border-transparent hover:text-white hover:border-gray-400 py-4 hover:bg-[#d6d6d6d9] bg-[#ffffff81] bg-opacity-50 px-6 transition-all duration-100 text-white">
+            <div className="border-b-[6px] border-transparent bg-[#ffffff81] bg-opacity-50 px-6 py-4 text-white transition-all duration-100 hover:cursor-pointer hover:border-gray-400 hover:bg-[#d6d6d6d9] hover:text-white">
               Top Up
             </div>
           </Link>
           <Link to="/history">
-            <div className="hover:cursor-pointer border-b-[6px]  border-transparent hover:text-white hover:border-gray-400 py-4 hover:bg-[#d6d6d6d9] bg-[#ffffff81] bg-opacity-50 px-6 transition-all duration-100 text-white">
+            <div className="border-b-[6px] border-transparent bg-[#ffffff81] bg-opacity-50 px-6 py-4 text-white transition-all duration-100 hover:cursor-pointer hover:border-gray-400 hover:bg-[#d6d6d6d9] hover:text-white">
               Transaction
             </div>
           </Link>
           <Link to="/profile">
-            <div className="hover:cursor-pointer border-b-[6px]  border-transparent hover:text-white hover:border-gray-400 py-4 hover:bg-[#d6d6d6d9] bg-[#ffffff81] bg-opacity-50 px-6 transition-all duration-100 text-white">
+            <div className="border-b-[6px] border-transparent bg-[#ffffff81] bg-opacity-50 px-6 py-4 text-white transition-all duration-100 hover:cursor-pointer hover:border-gray-400 hover:bg-[#d6d6d6d9] hover:text-white">
               Profile
             </div>
           </Link>

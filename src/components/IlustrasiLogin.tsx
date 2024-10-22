@@ -4,7 +4,7 @@ function IlustrasiLogin() {
     <>
       {" "}
       <img
-        className=" object-cover max-h-screen w-full min-h-[100vh]"
+        className="max-h-screen min-h-[100vh] w-full object-cover"
         src={ilustrasiLogin}
       />
     </>

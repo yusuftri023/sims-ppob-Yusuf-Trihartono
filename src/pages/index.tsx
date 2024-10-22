@@ -7,8 +7,6 @@ import {
   useGetServicesQuery,
 } from "../store/apiSlicer";
 
-import Header from "../components/Header";
-import AccountSummary from "../components/AccountSummary";
 import { setPayment } from "../store/reducers/transactionReducer";
 
 function Main() {
@@ -38,44 +36,40 @@ function Main() {
   }, [servicesResponse, dispatch]);
   return (
     <>
-      <Header />
-      <main className="text-3xl max-w-[90%] md:max-w-[720px] lg:max-w-[1000px] mx-auto">
-        <AccountSummary />
-        <div className="mt-5">
-          <ul className="grid grid-cols-2 sm:grid-cols-4  md:flex md:space-x-8 overflow-auto minimalist-scrollbar">
-            {servicesList.map((service, i) => (
-              <li
-                key={service.service_name + i}
-                className="min-w-[85px] w-[85px] py-2 mx-auto "
-                onClick={() => {
-                  navigate(`/payment?service_code=${service.service_code}`);
-                }}
-              >
-                <div className="hover:cursor-pointer hover:bg-[#dfdede]  rounded-md h-full">
-                  <img className="w-full" src={service.service_icon}></img>
-                  <p className="text-sm text-center">{service.service_name}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <section className="mt-5">
-          <h2 className="text-lg font-medium">Temukan promo menarik</h2>
-          <ul className="grid grid-cols-1  md:flex md:space-x-8 overflow-auto minimalist-scrollbar">
-            {bannerResponse?.data?.map((banner, i) => (
-              <li
-                key={banner.banner_name + i}
-                className=" sm:min-w-[300px] py-2 mx-auto  "
-              >
-                <img
-                  className="md:w-full w-[500px] "
-                  src={banner.banner_image}
-                ></img>
-              </li>
-            ))}
-          </ul>
-        </section>
-      </main>
+      <div className="mt-5">
+        <ul className="minimalist-scrollbar grid grid-cols-2 overflow-auto sm:grid-cols-4 md:flex md:space-x-8">
+          {servicesList.map((service, i) => (
+            <li
+              key={service.service_name + i}
+              className="mx-auto w-[85px] min-w-[85px] py-2"
+              onClick={() => {
+                navigate(`/payment?service_code=${service.service_code}`);
+              }}
+            >
+              <div className="h-full rounded-md hover:cursor-pointer hover:bg-[#dfdede]">
+                <img className="w-full" src={service.service_icon}></img>
+                <p className="text-center text-sm">{service.service_name}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <section className="mt-5">
+        <h2 className="text-lg font-medium">Temukan promo menarik</h2>
+        <ul className="minimalist-scrollbar grid grid-cols-1 overflow-auto md:flex md:space-x-8">
+          {bannerResponse?.data?.map((banner, i) => (
+            <li
+              key={banner.banner_name + i}
+              className="mx-auto py-2 sm:min-w-[300px]"
+            >
+              <img
+                className="w-[500px] md:w-full"
+                src={banner.banner_image}
+              ></img>
+            </li>
+          ))}
+        </ul>
+      </section>
     </>
   );
 }

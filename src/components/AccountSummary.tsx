@@ -7,14 +7,19 @@ import { useGetBalanceQuery, useGetProfileQuery } from "../store/apiSlicer";
 import { useAppDispatch, useAppSelector } from "../store/store";
 import useMediaQuery from "../hooks/useMediaQuery";
 import { setBalance } from "../store/reducers/transactionReducer";
+import { useNavigate } from "react-router-dom";
+import { popUpToggle, setError } from "../store/reducers/webContentReducer";
 function AccountSummary() {
   const token = useAppSelector((state) => state.auth.token);
   const dispatch = useAppDispatch();
   const { data: balance } = useGetBalanceQuery(
     { token },
-    { refetchOnMountOrArgChange: true }
+    { refetchOnMountOrArgChange: true },
   );
-  const { data: profile } = useGetProfileQuery({ token });
+  const navigate = useNavigate();
+  const { data: profile, isError: isErrorProfile } = useGetProfileQuery({
+    token,
+  });
   const [showBalance, setShowBalance] = useState<boolean>(false);
   const isMobile = useMediaQuery("(max-width: 768px)");
   useEffect(() => {
@@ -22,10 +27,21 @@ function AccountSummary() {
       dispatch(setBalance(balance.data?.balance));
     }
   }, [balance]);
+  useEffect(() => {
+    if (isErrorProfile) {
+      dispatch(
+        setError("Token kadaluarsa atau tidak valid, silahkan login kembali"),
+      );
+      dispatch(popUpToggle(true));
+      setTimeout(() => {
+        navigate("/login");
+      }, 4000);
+    }
+  }, [isErrorProfile, navigate]);
   return (
-    <section className="flex md:flex-row flex-col md:space-x-5 space-x-0 md:space-y-0 space-y-5 mt-8 ">
-      <div className="md:w-[40%] w-full text-center ">
-        <div className=" rounded-full overflow-hidden  border-[2px] border-[#e6e4e49c] w-fit mx-auto">
+    <section className="mt-8 flex flex-col space-x-0 space-y-5 md:flex-row md:space-x-5 md:space-y-0">
+      <div className="w-full text-center md:w-[40%]">
+        <div className="mx-auto w-fit overflow-hidden rounded-full border-[2px] border-[#e6e4e49c]">
           <img
             className="w-[70px]"
             src={
@@ -45,12 +61,12 @@ function AccountSummary() {
             : "Guest"}
         </p>
       </div>
-      <div className="md:w-[60%] min-h-[100px] ">
-        <div className="relative size-full flex items-end md:rounded-md rounded-xl overflow-hidden min-h-[150px]">
-          <div className="bg-[#f13b2f] w-[50%] absolute rounded-md top-0 left-5 min-h-full py-4 text-[#eee] flex flex-col justify-evenly ">
-            <p className="text-sm ">Saldo Anda</p>
+      <div className="min-h-[100px] md:w-[60%]">
+        <div className="relative flex size-full min-h-[150px] items-end overflow-hidden rounded-xl md:rounded-md">
+          <div className="absolute left-5 top-0 flex min-h-full w-[50%] flex-col justify-evenly rounded-md bg-[#f13b2f] py-4 text-[#eee]">
+            <p className="text-sm">Saldo Anda</p>
             {showBalance ? (
-              <p className="md:text-2xl text-sm  font-medium">
+              <p className="text-sm font-medium md:text-2xl">
                 Rp{" "}
                 {balance?.status === 0 &&
                   Intl.NumberFormat("id", {
@@ -59,12 +75,12 @@ function AccountSummary() {
                   }).format(balance?.data?.balance)}
               </p>
             ) : (
-              <p className="md:text-2xl text-sm font-medium">
+              <p className="text-sm font-medium md:text-2xl">
                 Rp &#9679; &#9679; &#9679; &#9679; &#9679; &#9679;
               </p>
             )}
             <div
-              className="flex items-center space-x-2 text-sm hover:cursor-pointer select-none"
+              className="flex select-none items-center space-x-2 text-sm hover:cursor-pointer"
               onClick={() => setShowBalance(!showBalance)}
             >
               {showBalance ? (
@@ -80,7 +96,7 @@ function AccountSummary() {
             </div>
           </div>
           <img
-            className="absolute top-0 size-full -z-10"
+            className="absolute top-0 -z-10 size-full"
             src={Background_Saldo}
           ></img>
         </div>

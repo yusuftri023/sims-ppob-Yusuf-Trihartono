@@ -25,9 +25,9 @@ function PopUp({
         <div
           className={`${
             showPopUp
-              ? ` animate-[fadeInToBottom_1s_ease-in-out]`
-              : ` animate-[fadeOutToTop_1s_ease-in-out]`
-          } absolute top-1/4  left-[calc(50%-150px)] z-20`}
+              ? `animate-[fadeInToBottom_1s_ease-in-out]`
+              : `animate-[fadeOutToTop_1s_ease-in-out]`
+          } absolute left-[calc(50%-150px)] top-1/4 z-20`}
           onAnimationEnd={() => {
             if (!showPopUp) setRender(false);
           }}
